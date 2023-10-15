@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "816646951316",
+    "project_id": "prestamoactualizado",
+    "storage_bucket": "prestamoactualizado.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:816646951316:android:b234f0d99ac8f90efb3f81",
+        "android_client_info": {
+          "package_name": "com.prestamo.prestamo_mc_2_0"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvlTjcv1Lk0LYTF76jmamsqzgkwRsM9nM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
