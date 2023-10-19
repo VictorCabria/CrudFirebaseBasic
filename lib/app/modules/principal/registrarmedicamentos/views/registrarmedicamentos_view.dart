@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../utils/palette.dart';
 import '../controllers/registrarmedicamentos_controller.dart';
@@ -22,7 +23,7 @@ class RegistrarmedicamentosView
             },
           )),
       body: Form(
-        key: controller.formkey,
+        key: controller.formKey,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
           child: ListView(children: [
@@ -34,6 +35,7 @@ class RegistrarmedicamentosView
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(20)),
               child: TextFormField(
+              
                 autofocus: false,
                 keyboardType: TextInputType.name,
                 textInputAction: TextInputAction.next,
@@ -69,10 +71,24 @@ class RegistrarmedicamentosView
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(20)),
               child: TextFormField(
+               onTap: () async {
+                  final DateTime? pickedTime = await showDatePicker(
+                      context: context,
+                      initialDate: controller.selectedDate,
+                      firstDate: DateTime(2015, 8),
+                      lastDate: DateTime(2101));
+                  if (pickedTime != null) {
+                    controller.fromDateControler.text =
+                        '${pickedTime.day}/${pickedTime.month}/${pickedTime.year}';
+                  }
+                },
                 autofocus: false,
                 keyboardType: TextInputType.number,
                 cursorColor: Palette.primary,
-                controller: null,
+               controller: controller.fromDateControler,
+                onSaved: (value) {
+                  controller.fromDateControler.text = value!;
+                },
                 decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.headset, color: Palette.primary),
                     enabledBorder: OutlineInputBorder(
@@ -167,19 +183,19 @@ class RegistrarmedicamentosView
             Container(
               child: TextFormField(
                 onTap: () async {
-                  final TimeOfDay? pickedTime =  await showTimePicker(context: context, 
-                  initialTime: controller.selectedtime,
-                  initialEntryMode: TimePickerEntryMode.dial 
-                  );
+                  final TimeOfDay? pickedTime = await showTimePicker(
+                      context: context,
+                      initialTime: controller.selectedtime,
+                      initialEntryMode: TimePickerEntryMode.dial);
 
                   if (pickedTime != null) {
-                    controller.fromDateControler.text =
+                    controller.fromDatetimeControler.text =
                         '${pickedTime.hour}:${pickedTime.minute}';
                   }
                 },
-                controller: controller.fromDateControler,
+                controller: controller.fromDatetimeControler,
                 onSaved: (value) {
-                  controller.fromDateControler.text = value!;
+                  controller.fromDatetimeControler.text = value!;
                 },
                 decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.headset, color: Palette.primary),
@@ -197,7 +213,7 @@ class RegistrarmedicamentosView
                         color: Palette.primary,
                       ),
                     ),
-                    labelText: "Fecha expiracion",
+                    labelText: "Hora",
                     fillColor: Palette.primary,
                     labelStyle: TextStyle(color: Palette.primary)),
               ),

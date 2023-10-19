@@ -73,7 +73,9 @@ class AjustesptView extends GetView<AjustesptController> {
                 ),
                 title: const Text("Notificaciones",
                     style: TextStyle(fontWeight: FontWeight.w500)),
-                onTap: () {}),
+                onTap: () {
+                  controller.getlistamedicamentosN(controller.paciente!);
+                }),
             ListTile(
                 leading: const Padding(
                   padding: EdgeInsets.only(top: 6),

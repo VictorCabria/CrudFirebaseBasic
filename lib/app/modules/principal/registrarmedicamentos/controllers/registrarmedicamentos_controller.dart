@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -7,14 +8,17 @@ import '../../../../models/pacientes_model.dart';
 import '../../../../services/model_services/medicamentos_services.dart';
 
 class RegistrarmedicamentosController extends GetxController {
-  //TODO: Implement RegistrarmedicamentosController
-  final formkey = GlobalKey<FormState>();
+  DateTime selectedDate = DateTime.now();
+  final formKey = GlobalKey<FormState>();
   late TextEditingController nombreMcontroller;
   late TextEditingController dosiscontroller;
   late TextEditingController condicionMcontroller;
   late TextEditingController fromDateControler;
+  late TextEditingController fromDatetimeControler;
    Pacientes? paciente;
    TimeOfDay selectedtime = TimeOfDay.now();
+
+
 
   @override
   void onInit() {
@@ -23,6 +27,7 @@ class RegistrarmedicamentosController extends GetxController {
     dosiscontroller = TextEditingController();
     condicionMcontroller = TextEditingController();
     fromDateControler = TextEditingController();
+    fromDatetimeControler = TextEditingController();
     super.onInit();
   }
 
@@ -32,12 +37,12 @@ class RegistrarmedicamentosController extends GetxController {
       idpaciente: paciente?.id,
       fechaExpiracion: fromDateControler.text,
       dosis:double.tryParse(dosiscontroller.text),
-      hora: fromDateControler.text,
+      hora: fromDatetimeControler.text,
 
     );
 
       try {
-      if (formkey.currentState!.validate()) {
+      if (formKey.currentState!.validate()) {
         await medicamentoservices.savemedicamentos(medicamentos: medicamentos);
         Get.back();
       }

@@ -23,6 +23,8 @@ class HomeView extends GetView<HomeController> {
                     onPressed: () => controller.logout(),
                   )
         ],
+          
+      
       ),
       body: GetX<HomeController>(
             builder: (b) => b.isloading.value
@@ -56,8 +58,8 @@ class HomeView extends GetView<HomeController> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: EdgeInsets.only(left: 5.w),
-                margin: const EdgeInsets.all(10),
+                padding: EdgeInsets.only(left: 80.w),
+                margin: const EdgeInsets.all(15),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,

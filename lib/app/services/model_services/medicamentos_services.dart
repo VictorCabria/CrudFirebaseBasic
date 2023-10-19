@@ -32,7 +32,7 @@ class MedicamentosServices{
     }
   }
 
-  FirebaseFirestore getlistpacientes = FirebaseFirestore.instance;
+  FirebaseFirestore getlistmedicamentos = FirebaseFirestore.instance;
   CollectionReference obtenerlistmedicamentos() {
     return FirebaseFirestore.instance.collection(firebaseReferences.medicamentos);
 }

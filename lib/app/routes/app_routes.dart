@@ -11,6 +11,7 @@ abstract class Routes {
   static const CREATEPACIENTES = _Paths.CREATEPACIENTES;
   static const AJUSTESPT = _Paths.AJUSTESPT;
   static const REGISTRARMEDICAMENTOS = _Paths.REGISTRARMEDICAMENTOS;
+  static const LISTADEMEDICA_N = _Paths.LISTADEMEDICA_N;
 }
 
 abstract class _Paths {
@@ -23,4 +24,5 @@ abstract class _Paths {
   static const CREATEPACIENTES = '/createpacientes';
   static const AJUSTESPT = '/ajustespt';
   static const REGISTRARMEDICAMENTOS = '/registrarmedicamentos';
+  static const LISTADEMEDICA_N = '/listademedica-n';
 }

@@ -18,7 +18,8 @@ class CreatepacientesView extends GetView<CreatepacientesController> {
             onPressed: () {
               Get.back();
             },
-          )),
+          )
+        ),
       body: Form(
         key: controller.formkey,
         child: Padding(

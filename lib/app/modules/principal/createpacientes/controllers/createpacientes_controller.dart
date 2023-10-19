@@ -2,7 +2,9 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:prestamo_mc_2_0/app/models/pacientes_model.dart';
 
+
 import '../../../../services/model_services/pacientes_services.dart';
+import '../../../introduccion/login/controllers/login_controller.dart';
 
 class CreatepacientesController extends GetxController {
   final formkey = GlobalKey<FormState>();
@@ -10,6 +12,7 @@ class CreatepacientesController extends GetxController {
   late TextEditingController identificacioncontroller;
   late TextEditingController generocontroller;
   late TextEditingController condicionMcontroller;
+    final homeControll = Get.find<LoginController>();
 
   @override
   void onInit() {
@@ -27,6 +30,7 @@ class CreatepacientesController extends GetxController {
           identificacioncontroller.text.toString().replaceAll(",", "")),
           condicionm: condicionMcontroller.text,
            genero: generocontroller.text,
+           idusuario: homeControll.usuario!.id
           );
 
     try {

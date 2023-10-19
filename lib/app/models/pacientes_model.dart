@@ -3,6 +3,7 @@
 class Pacientes {
   String? id;
   double? edad;
+   String? idusuario;
   String? nombre;
   String? genero;
   String? condicionm;
@@ -11,6 +12,7 @@ class Pacientes {
     this.id,
     this.edad,
     this.nombre,
+    this.idusuario,
     this.genero,
     this.condicionm,
   });
@@ -20,6 +22,7 @@ class Pacientes {
       id: map.id,
       nombre: map['nombre'],
       edad: map['edad'],
+      idusuario: map['idusuario'],
       genero: map['genero'],
       condicionm: map['condicionm'],
 
@@ -32,6 +35,7 @@ class Pacientes {
       id: idMap,
       nombre: dinamico['nombre'],
       edad: dinamico['edad'],
+      idusuario: dinamico['idusuario'],
       genero: dinamico['genero'],
       condicionm: dinamico['condicionm'],
     );
@@ -41,6 +45,7 @@ class Pacientes {
     final data = <String, dynamic>{};
     data['nombre'] = nombre;
     data['edad'] = edad;
+    data['idusuario'] = idusuario;
     data['genero'] = genero;
     data['condicionm'] = condicionm;
 
