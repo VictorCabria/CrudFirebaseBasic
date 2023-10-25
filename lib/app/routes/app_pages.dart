@@ -4,18 +4,20 @@ import '../modules/introduccion/landing/bindings/landing_binding.dart';
 import '../modules/introduccion/landing/views/landing_view.dart';
 import '../modules/introduccion/login/bindings/login_binding.dart';
 import '../modules/introduccion/login/views/login_view.dart';
-import '../modules/principal/listademedicaN/bindings/listademedica_n_binding.dart';
-import '../modules/principal/listademedicaN/views/listademedica_n_view.dart';
 import '../modules/principal/ajustespt/bindings/ajustespt_binding.dart';
 import '../modules/principal/ajustespt/views/ajustespt_view.dart';
 import '../modules/principal/createpacientes/bindings/createpacientes_binding.dart';
 import '../modules/principal/createpacientes/views/createpacientes_view.dart';
 import '../modules/principal/home/bindings/home_binding.dart';
 import '../modules/principal/home/views/home_view.dart';
+import '../modules/principal/listademedicaN/bindings/listademedica_n_binding.dart';
+import '../modules/principal/listademedicaN/views/listademedica_n_view.dart';
 import '../modules/principal/listalarmas/bindings/listalarmas_binding.dart';
 import '../modules/principal/listalarmas/views/listalarmas_view.dart';
 import '../modules/principal/registrarmedicamentos/bindings/registrarmedicamentos_binding.dart';
 import '../modules/principal/registrarmedicamentos/views/registrarmedicamentos_view.dart';
+import '../modules/introduccion/registrarse/bindings/registrarse_binding.dart';
+import '../modules/introduccion/registrarse/views/registrarse_view.dart';
 
 part 'app_routes.dart';
 
@@ -64,6 +66,11 @@ class AppPages {
       name: _Paths.LISTADEMEDICA_N,
       page: () => const ListademedicaNView(),
       binding: ListademedicaNBinding(),
+    ),
+    GetPage(
+      name: _Paths.REGISTRARSE,
+      page: () => const RegistrarseView(),
+      binding: RegistrarseBinding(),
     ),
   ];
 }

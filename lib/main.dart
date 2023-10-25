@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:prestamo_mc_2_0/app/services/firebase_services/auth_services.dart';
+import 'package:prestamo_mc_2_0/app/services/model_services/notificicacion_service.dart';
 import 'package:prestamo_mc_2_0/app/utils/palette.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'firebase_options.dart';
@@ -14,6 +15,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await GetStorage.init();
+  await notificaionees.initialize();
 
   runApp(
     ResponsiveSizer(builder: (context, orientation, screenType) {
@@ -32,22 +34,17 @@ class MyApp extends StatelessWidget {
     String? _setInitialRoute() {
       var firebaseUser = auth.getCurrentUser();
 
-      if (firebaseUser != null) {
-        return Routes.HOME;
-      } else {
-        // return AppPages.INITIAL;
-        return AppPages.INITIAL;
-      }
+      return AppPages.INITIAL;
     }
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Application",
-       color: Palette.primary,
+      color: Palette.primary,
       initialRoute: _setInitialRoute(),
       getPages: AppPages.routes,
       localizationsDelegates: const [
-         GlobalMaterialLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],

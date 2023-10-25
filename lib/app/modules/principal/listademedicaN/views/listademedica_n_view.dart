@@ -12,7 +12,7 @@ class ListademedicaNView extends GetView<ListademedicaNController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ListademedicaNView'),
+        title: const Text('Medicamentos'),
         centerTitle: true,
       ),
       body: GetX<ListademedicaNController>(

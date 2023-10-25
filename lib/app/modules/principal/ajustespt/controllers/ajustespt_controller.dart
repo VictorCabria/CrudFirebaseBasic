@@ -19,7 +19,7 @@ class AjustesptController extends GetxController {
   }
 
     getlistamedicamentosN(Pacientes d) {
-    Get.toNamed(Routes.LISTADEMEDICA_N, arguments: d);
+    Get.toNamed(Routes.LISTADEMEDICA_N, arguments: {'id':d});
   }
 
 }

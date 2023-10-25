@@ -5,9 +5,10 @@ import 'package:prestamo_mc_2_0/app/models/user_model.dart';
 
 class AuthService {
   final FirebaseAuth _firebaseAuth;
+   var firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   AuthService(this._firebaseAuth);
- Future<dynamic> signIn(
+  Future<dynamic> signIn(
       {required String email, required String password}) async {
     String errorMessage = '';
     try {
@@ -44,20 +45,16 @@ class AuthService {
     }
   }
 
-  postDetailsToFirestore(String nombre, bool admin) async {
+  postDetailsToFirestore(String nombre) async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
     User? user = _auth.currentUser;
 
     Usuarios userModel = Usuarios();
 
-    userModel.activo = true;
-
     userModel.correo = user!.email;
-
+    
     userModel.id = user.uid;
-
-    userModel.isAdmin = admin;
 
     userModel.nombre = nombre;
 
@@ -85,6 +82,11 @@ class AuthService {
       }
     }
     return errorMessage;
+  }
+
+  Future<DocumentSnapshot> getDocument(
+      {required String documentId, required String collection}) {
+    return firestore.collection(collection).doc(documentId).get();
   }
 
   ///Change password
@@ -142,4 +144,3 @@ class AuthService {
 }
 
 final AuthService auth = AuthService(FirebaseAuth.instance);
-

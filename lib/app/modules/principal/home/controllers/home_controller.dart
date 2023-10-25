@@ -1,6 +1,9 @@
 import 'package:get/get.dart';
 import 'package:prestamo_mc_2_0/app/models/pacientes_model.dart';
+import 'package:prestamo_mc_2_0/app/models/user_model.dart';
 import 'package:prestamo_mc_2_0/app/modules/introduccion/login/controllers/login_controller.dart';
+import 'package:prestamo_mc_2_0/app/services/model_services/notificicacion_service.dart';
+
 import 'package:prestamo_mc_2_0/app/services/model_services/pacientes_services.dart';
 
 import '../../../../routes/app_pages.dart';
@@ -11,13 +14,14 @@ class HomeController extends GetxController {
   late Stream<List<Pacientes>> pacienteStream;
   List<Pacientes> get pacientesget => pacientes;
   RxBool isloading = false.obs;
-  final homeControll = Get.find<LoginController>();
 
+ Usuarios? usuario;
   @override
   void onInit() {
+    usuario = Get.arguments['usuario'];
     pacienteStream = getpacientes();
     super.onInit();
-
+ print(usuario);
     init();
   }
 
@@ -29,7 +33,7 @@ class HomeController extends GetxController {
 
   getpacientes() => pacienteservices
       .obtenerlistpacientes()
-      .where("idusuario", isEqualTo: homeControll.usuario!.id)
+      .where("idusuario", isEqualTo: usuario!.id)
       .snapshots()
       .map((event) => event.docs.map((e) => Pacientes.fromJson(e)).toList());
 
@@ -40,12 +44,16 @@ class HomeController extends GetxController {
     }
   }
 
+notificaciones ()async {
+  notificaionees.shownotify(id: 0, title: "Prueba", body: "prueba", payload: "");
+}
+
   
   getAjustesPT(Pacientes d) {
     Get.toNamed(Routes.AJUSTESPT, arguments: d);
   }
 
   createpaciente() {
-    Get.toNamed(Routes.CREATEPACIENTES);
+    Get.toNamed(Routes.CREATEPACIENTES, arguments:{'usuario':usuario});
   }
 }

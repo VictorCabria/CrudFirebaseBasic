@@ -11,8 +11,7 @@ final _localNotificactionService = FlutterLocalNotificationsPlugin();
 
     const InitializationSettings setting =
         InitializationSettings(android: androidInitializationSettings);
-    await _localNotificactionService.initialize(setting,
-      /*   onSelectNotification: _onSelectNotification */);
+    await _localNotificactionService.initialize(setting);
   }
 
   Future<NotificationDetails> _notificationDetails() async {
@@ -82,3 +81,4 @@ final _localNotificactionService = FlutterLocalNotificationsPlugin();
             UILocalNotificationDateInterpretation.absoluteTime);
   }
 }
+CrudService notificaionees =CrudService();

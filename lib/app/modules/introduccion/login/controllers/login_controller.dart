@@ -5,8 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:prestamo_mc_2_0/app/models/user_model.dart';
 
 import '../../../../routes/app_pages.dart';
+import '../../../../services/firebase_services/auth_services.dart';
 import '../../../../services/model_services/user_service.dart';
-
 
 class LoginController extends GetxController {
   final gestorMode = false.obs;
@@ -26,7 +26,11 @@ class LoginController extends GetxController {
   }
 
   getToHome() async {
-    Get.toNamed(Routes.HOME, arguments: {'gestorMode': gestorMode.value});
+    Get.toNamed(Routes.HOME, arguments:{'usuario':usuario});
+  }
+
+  getToregistrar() async {
+    Get.toNamed(Routes.REGISTRARSE);
   }
 
   getusuarios(String email) async {
@@ -35,14 +39,7 @@ class LoginController extends GetxController {
   }
 
   loginusuario() {
-    if (usuario!.isAdmin == true) {
-      authUser(emailcontroller.text, passwordcontroller.text);
-    } else {
-      Get.dialog(const AlertDialog(
-        title: Text("ERROR DEL SISTEMA"),
-        content: Text("USTED NO ES ADMIN"),
-      ));
-    }
+    authUser(emailcontroller.text, passwordcontroller.text);
   }
 
   Future<String?> authUser(String email, String pass) async {
@@ -117,30 +114,21 @@ class LoginController extends GetxController {
     });
   }
 
-  /*  agregar2(int val) {
-    if (code.value.length < 4) {
-      code.value += "$val";
-    } else {
-      Get.toNamed(Routes.HOME, arguments: {'gestorMode': gestorMode.value});
-    }
-  } */
 
-  // agregar(int val) async {
-  //   if (formkey.currentState!.validate()) {
-  //     code.value += "$val";
-  //     if (code.value.length == 4) {
-  //       var response = await cobradoresService.loginCobradores(code.value);
-  //       if (response != null) {
-  //         Get.toNamed(Routes.HOME, arguments: {
-  //           'gestorMode': gestorMode.value,
-  //           'cobrador': response
-  //         });
-  //       } else {
-  //         Get.dialog(const AlertDialog(
-  //           title: Text("Codigo Incorrecto"),
-  //         ));
-  //         code.value = '';
-  //       }
-  //     }
-  //   }
-  }
+
+signin() async {
+   if (formkey.currentState!.validate()) {
+      String id;
+      var response = await auth.signIn(
+          email: emailcontroller.text, password: passwordcontroller.text);
+
+      if (response.runtimeType != String) {
+        id = response.user!.uid!;
+        var usurario =
+            await auth.getDocument(documentId: id, collection: "users");
+        usuario = Usuarios.fromJson(usurario);
+        Get.offAllNamed(Routes.HOME, arguments: {'id': id});
+}
+}
+}
+}
