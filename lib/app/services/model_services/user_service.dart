@@ -35,5 +35,19 @@ class UserService {
       return null;
     }
   }
+
+  Future<String?> updateusuarios(Usuarios usuarios) async {
+    try {
+      DocumentReference docRef = database.getDocumentReference(
+          collection: userReference, documentId: usuarios.id!);
+      await docRef.update(usuarios.toJson());
+      return "";
+    } catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
+      }
+      return "";
+    }
+  }
 }
 UserService userService = UserService();

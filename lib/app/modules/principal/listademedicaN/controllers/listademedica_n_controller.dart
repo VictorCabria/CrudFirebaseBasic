@@ -34,22 +34,22 @@ class ListademedicaNController extends GetxController {
   init() {
     medicamentosStream.listen((event) async {
       medicamentos.value = event;
-      validaciondehora();
+      validaciondehora(event);
     });
   }
 
-  validaciondehora() async {
-    for (var i = 0; i < medicamentos.length; i++) {
-      if (medicamentos[i].fechaExpiracion == fechalimite) {
+ void validaciondehora(List<Medicamentos> event) async {
+    for (var i in event) {
+      if (i.fechaExpiracion == fechalimite) {
         break;
       } else {
-        if (medicamentos[i].hora == hoy) {
+        if (i.hora == hoy) {
           notificaionees.shownotify(
               id: 0,
-              title: medicamentos[i].nombreM!,
-              body: (('''Dosis: ${medicamentos[i].dosis!}'''
+              title: i.nombreM!,
+              body: (('''Dosis: ${i.dosis!}'''
                       "\n") +
-                  ('''Hora: ${medicamentos[i].hora}'''
+                  ('''Hora: ${i.hora}'''
                       "\n")),
               payload: "");
         }

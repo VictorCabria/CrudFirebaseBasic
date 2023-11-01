@@ -47,9 +47,6 @@ class HomeController extends GetxController {
 
 
 
-notificaciones ()async {
-  notificaionees.shownotify(id: 0, title: "Prueba", body: "prueba", payload: "");
-}
 
   
   getAjustesPT(Pacientes d) {
