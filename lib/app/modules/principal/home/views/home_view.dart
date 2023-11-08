@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:prestamo_mc_2_0/app/models/genero_model.dart';
 import 'package:prestamo_mc_2_0/app/routes/app_pages.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -55,49 +56,13 @@ class HomeView extends GetView<HomeController> {
           ),
         ]),
         bottomSheet: Container(
-            color: Palette.tercery,
-            height: 10.h,
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(left: 5.w),
-                    margin: const EdgeInsets.all(10),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: Palette.primaryLetter,
-                            child: IconButton(
-                                onPressed: () => controller.createpaciente(),
-                                icon: const Icon(
-                                  Icons.add,
-                                  color: Palette.tercery,
-                                )),
-                          ),
-                        ]),
-                  ),
-                  Container(
-                margin: const EdgeInsets.all(10),
-                child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold)),
-                      Text("",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold)),
-                    ]),
-              ),
-              
+          color: Palette.tercery,
+          height: 10.h,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
               Container(
+                padding: EdgeInsets.only(left: 3.w),
                 margin: const EdgeInsets.all(20),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -106,19 +71,36 @@ class HomeView extends GetView<HomeController> {
                       const Text("Pacientes",
                           style: TextStyle(
                               color: Colors.white,
-                              fontSize: 12,
+                              fontSize: 14,
                               fontWeight: FontWeight.bold)),
                       Text(controller.pacientes.length.toString(),
                           style: const TextStyle(
                               color: Colors.white,
-                              fontSize: 12,
+                              fontSize: 14,
                               fontWeight: FontWeight.bold)),
+                    ]),
+              ),
+              Container(
+                padding: EdgeInsets.only(right: 5.w),
+                margin: const EdgeInsets.all(10),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Palette.primaryLetter,
+                        child: IconButton(
+                            onPressed: () => controller.createpaciente(),
+                            icon: const Icon(
+                              Icons.add,
+                              color: Palette.tercery,
+                            )),
+                      ),
                     ]),
               ),
             ],
           ),
-        )
-                ));
+        )));
   }
 }
 
@@ -134,8 +116,9 @@ class CustomCard extends StatelessWidget {
     return Card(
       shape: const RoundedRectangleBorder(
         side: BorderSide(
-          color: Colors.black45,
+          color: Palette.tercery,
         ),
+        borderRadius: const BorderRadius.all(Radius.circular(12)),
       ),
       child: ListTile(
           onTap: () {
@@ -162,7 +145,7 @@ class CustomCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(height: 10.w),
-                           Text((s.value.condicionm!),
+                          Text((s.value.condicionm!),
                               style: TextStyle(fontSize: 15)),
 
                           /* const SizedBox(height: 10),
@@ -183,9 +166,11 @@ class CustomCard extends StatelessWidget {
               ), */
                         ]),
                   ),
-                   const Divider(thickness: 5, height: 30,
-                   color: Colors.greenAccent,
-                   ),
+                  const Divider(
+                    thickness: 5,
+                    height: 30,
+                    color: Colors.greenAccent,
+                  ),
                   Row(
                     children: [
                       Expanded(
@@ -201,19 +186,26 @@ class CustomCard extends StatelessWidget {
                                     "assets/images/Recurso4.png",
                                     height: 20,
                                   ),
-                                  
                                 ),
                                 Padding(
-                                  padding:  EdgeInsets.all(8),
-                                  child: Text(s.value.genero!,
-                                                  style: TextStyle(color: Colors.grey),),
+                                  padding: EdgeInsets.all(8),
+                                  child: FutureBuilder(
+                                      future: controller
+                                          .getgeneroId(s.value.genero!),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.hasData) {
+                                          Genero generos =
+                                              snapshot.data as Genero;
+                                          return Text(generos.tipo!);
+                                        } else {
+                                          return const Text("");
+                                        }
+                                      }),
                                 )
                               ],
                             ),
-                            
                           ])),
-
-                          Expanded(
+                      Expanded(
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -223,19 +215,20 @@ class CustomCard extends StatelessWidget {
                               children: [
                                 ClipRRect(
                                   child: Image.asset(
-                                    "assets/images/Recurso4.png",
+                                    "assets/images/edad.png",
                                     height: 20,
                                   ),
                                 ),
                                 Padding(
-                                  padding:  EdgeInsets.all(8),
-                                  child: Text(s.value.edad!.toStringAsFixed(0),
-                                                  style: TextStyle(color: Colors.grey),),
-                            )],
+                                  padding: EdgeInsets.all(8),
+                                  child: Text(
+                                    s.value.edad!.toStringAsFixed(0),
+                                    style: TextStyle(color: Colors.grey),
+                                  ),
+                                )
+                              ],
                             ),
-                            
                           ]))
-                          
                     ],
                   )
                 ]),

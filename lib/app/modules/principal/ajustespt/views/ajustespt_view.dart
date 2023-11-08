@@ -15,7 +15,7 @@ class AjustesptView extends GetView<AjustesptController> {
           'Ajustes Paciente',
         ),
         centerTitle: true,
-        backgroundColor: Palette.primary,
+        backgroundColor: Palette.tercery,
         leading: BackButton(
           color: Colors.white,
           onPressed: () {
@@ -34,8 +34,8 @@ class AjustesptView extends GetView<AjustesptController> {
                   ClipRRect(
                       borderRadius: BorderRadius.circular(40),
                       child: const CircleAvatar(
-                          radius: 30, backgroundColor: Colors.black)),
-                   Padding(
+                          radius: 30, backgroundColor: Palette.tercery)),
+                  Padding(
                     padding: const EdgeInsets.only(left: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,7 +46,7 @@ class AjustesptView extends GetView<AjustesptController> {
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 8),
-                         Text(
+                        Text(
                           "${controller.paciente!.condicionm}",
                           style: const TextStyle(
                               fontSize: 15, fontWeight: FontWeight.w500),
@@ -65,7 +65,10 @@ class AjustesptView extends GetView<AjustesptController> {
                 ),
                 title: const Text("Editar",
                     style: TextStyle(fontWeight: FontWeight.w500)),
-                onTap: () {}),
+                onTap: () {
+
+                  controller.geteditar(controller.paciente!);
+                }),
             ListTile(
                 leading: const Padding(
                   padding: EdgeInsets.only(top: 6),
@@ -93,7 +96,9 @@ class AjustesptView extends GetView<AjustesptController> {
                 ),
                 title: const Text("Detalles",
                     style: TextStyle(fontWeight: FontWeight.w500)),
-                onTap: () {}),
+                onTap: () {
+                  controller.getDetalles(controller.paciente!);
+                }),
           ]),
         ),
       ),

@@ -12,7 +12,7 @@ class ListademedicaNController extends GetxController {
   List<Medicamentos> get medicamentosget => medicamentos;
   late Stream<List<Medicamentos>> medicamentosStream;
   RxBool isloading = false.obs;
-  String hoy = DateFormat('hh:mm').format(DateTime.now()).toString();
+  String hoy = DateFormat('h:m').format(DateTime.now()).toString();
   String fechalimite =
       DateFormat('dd/MM/yyyy').format(DateTime.now()).toString();
   Pacientes? paciente;
@@ -39,17 +39,18 @@ class ListademedicaNController extends GetxController {
   }
 
  void validaciondehora(List<Medicamentos> event) async {
-    for (var i in event) {
-      if (i.fechaExpiracion == fechalimite) {
+  for (var i = 0; i < event.length; i++) {
+      if (event[i].fechaExpiracion == fechalimite) {
         break;
       } else {
-        if (i.hora == hoy) {
+        print(hoy);
+        if (event[i].hora == hoy) {
           notificaionees.shownotify(
               id: 0,
-              title: i.nombreM!,
-              body: (('''Dosis: ${i.dosis!}'''
+              title: event[i].nombreM!,
+              body: (('''Dosis: ${event[i].dosis!}'''
                       "\n") +
-                  ('''Hora: ${i.hora}'''
+                  ('''Hora: ${event[i].hora}'''
                       "\n")),
               payload: "");
         }

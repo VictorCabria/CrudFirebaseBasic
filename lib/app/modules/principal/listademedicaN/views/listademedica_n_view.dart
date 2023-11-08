@@ -16,34 +16,33 @@ class ListademedicaNView extends GetView<ListademedicaNController> {
         centerTitle: true,
       ),
       body: GetX<ListademedicaNController>(
-            builder: (b) => b.isloading.value
-                ? const CircularProgressIndicator()
-                : ListView(
-                    children: b.medicamentosget
-                        .map(
-                          (element) => SizedBox(
-                            child: Column(
-                              children: [
-                                const SizedBox(
-                                  height: 1,
-                                ),
-                                CustomCard(
-                                  controller: b,
-                                  s: element.obs,
-                                ),
-                                const Divider(
-                                  thickness: 0.5,
-                                )
-                              ],
+        builder: (b) => b.isloading.value
+            ? const CircularProgressIndicator()
+            : ListView(
+                children: b.medicamentosget
+                    .map(
+                      (element) => SizedBox(
+                        child: Column(
+                          children: [
+                            const SizedBox(
+                              height: 1,
                             ),
-                          ),
-                        )
-                        .toList()),
-          ),
+                            CustomCard(
+                              controller: b,
+                              s: element.obs,
+                            ),
+                            const Divider(
+                              thickness: 0.5,
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                    .toList()),
+      ),
     );
   }
 }
-
 
 class CustomCard extends StatelessWidget {
   const CustomCard({Key? key, required this.controller, required this.s})
@@ -54,13 +53,30 @@ class CustomCard extends StatelessWidget {
   final Rx<Medicamentos> s;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(),
-      child: ListTile(
-        title: Text(s.value.nombreM!, style: const TextStyle(fontSize: 18)),
-        isThreeLine: true,
-        subtitle: Text(s.value.hora!),
-       
+    return Center(
+      child: Card(
+        elevation: 0,
+        color: Theme.of(context).scaffoldBackgroundColor,
+        shape: const RoundedRectangleBorder(
+          side: BorderSide(
+            color: Colors.blueAccent,
+          ),
+          borderRadius: const BorderRadius.all(Radius.circular(12)),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          // color: Colors.,
+          child: ListTile(
+            title: Text(s.value.nombreM!, style: const TextStyle(fontSize: 20)),
+            isThreeLine: true,
+            subtitle: Text(s.value.hora!),
+            leading: CircleAvatar(
+              radius: 30,
+              backgroundColor: Palette.tercery,
+              child: Text(s.value.nombreM!.substring(0, 2)),
+            ),
+          ),
+        ),
       ),
     );
   }

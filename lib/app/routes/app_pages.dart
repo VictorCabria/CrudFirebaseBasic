@@ -1,9 +1,15 @@
 import 'package:get/get.dart';
 
+import '../modules/principal/editarpacientes/bindings/editarpacientes_binding.dart';
+import '../modules/principal/editarpacientes/views/editarpacientes_view.dart';
 import '../modules/introduccion/landing/bindings/landing_binding.dart';
 import '../modules/introduccion/landing/views/landing_view.dart';
 import '../modules/introduccion/login/bindings/login_binding.dart';
 import '../modules/introduccion/login/views/login_view.dart';
+import '../modules/introduccion/registrarse/bindings/registrarse_binding.dart';
+import '../modules/introduccion/registrarse/views/registrarse_view.dart';
+import '../modules/principal/Detalles/bindings/detalles_binding.dart';
+import '../modules/principal/Detalles/views/detalles_view.dart';
 import '../modules/principal/ajustespt/bindings/ajustespt_binding.dart';
 import '../modules/principal/ajustespt/views/ajustespt_view.dart';
 import '../modules/principal/createpacientes/bindings/createpacientes_binding.dart';
@@ -16,8 +22,6 @@ import '../modules/principal/listalarmas/bindings/listalarmas_binding.dart';
 import '../modules/principal/listalarmas/views/listalarmas_view.dart';
 import '../modules/principal/registrarmedicamentos/bindings/registrarmedicamentos_binding.dart';
 import '../modules/principal/registrarmedicamentos/views/registrarmedicamentos_view.dart';
-import '../modules/introduccion/registrarse/bindings/registrarse_binding.dart';
-import '../modules/introduccion/registrarse/views/registrarse_view.dart';
 
 part 'app_routes.dart';
 
@@ -71,6 +75,16 @@ class AppPages {
       name: _Paths.REGISTRARSE,
       page: () => const RegistrarseView(),
       binding: RegistrarseBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETALLES,
+      page: () => const DetallesView(),
+      binding: DetallesBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDITARPACIENTES,
+      page: () => const EditarpacientesView(),
+      binding: EditarpacientesBinding(),
     ),
   ];
 }

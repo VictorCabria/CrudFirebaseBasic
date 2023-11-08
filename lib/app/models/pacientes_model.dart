@@ -1,11 +1,9 @@
-
-
 class Pacientes {
   String? id;
   double? edad;
-   String? idusuario;
+  String? idusuario;
   String? nombre;
-  String? genero;
+  dynamic genero;
   String? condicionm;
 
   Pacientes({
@@ -25,7 +23,6 @@ class Pacientes {
       idusuario: map['idusuario'],
       genero: map['genero'],
       condicionm: map['condicionm'],
-
     );
   }
 

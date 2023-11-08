@@ -15,7 +15,7 @@ class RegistrarseView extends GetView<RegistrarseController> {
         backgroundColor: Palette.tercery,
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(10.0),
             child: Form(
                 key: controller.formkey,
                 child: Column(
@@ -42,10 +42,12 @@ class PassLogin extends StatelessWidget {
   }) : super(key: key);
 
   final RegistrarseController controller;
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        SizedBox(height: 15.w),
         SizedBox(
             child: Image.asset(
           "assets/images/Recurso1.png",
@@ -75,6 +77,7 @@ class PassLogin extends StatelessWidget {
             onSaved: (value) {
               controller.nombresController.text = value!;
             },
+            style: TextStyle(color: Colors.white),
             textInputAction: TextInputAction.next,
             cursorColor: Palette.primaryLetter,
             decoration: const InputDecoration(
@@ -102,12 +105,11 @@ class PassLogin extends StatelessWidget {
                 labelStyle: TextStyle(color: Palette.primaryLetter)),
           ),
         ),
-        const SizedBox(height: 3),
+        SizedBox(height: 5.w),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
           child: TextFormField(
             autofocus: false,
-            
             controller: controller.emaileditController,
             validator: (value) {
               return null;
@@ -115,10 +117,10 @@ class PassLogin extends StatelessWidget {
             onSaved: (value) {
               controller.emaileditController.text = value!;
             },
+            style: TextStyle(color: Colors.white),
             textInputAction: TextInputAction.next,
-             keyboardType: TextInputType.emailAddress,
+            keyboardType: TextInputType.emailAddress,
             cursorColor: Palette.primaryLetter,
-           
             decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.key, color: Palette.primaryLetter),
                 enabledBorder: OutlineInputBorder(
@@ -143,7 +145,7 @@ class PassLogin extends StatelessWidget {
                 labelStyle: TextStyle(color: Palette.primaryLetter)),
           ),
         ),
-        const SizedBox(height: 3),
+        SizedBox(height: 5.w),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
           child: TextFormField(
@@ -157,6 +159,7 @@ class PassLogin extends StatelessWidget {
             onSaved: (value) {
               controller.passwordeditController.text = value!;
             },
+            style: TextStyle(color: Colors.white),
             textInputAction: TextInputAction.next,
             cursorColor: Palette.primaryLetter,
             decoration: const InputDecoration(
@@ -184,15 +187,27 @@ class PassLogin extends StatelessWidget {
                 labelStyle: TextStyle(color: Palette.primaryLetter)),
           ),
         ),
-        const SizedBox(height: 15),
+        SizedBox(height: 10.w),
         Material(
           borderRadius: BorderRadius.circular(20),
           color: Palette.primaryLetter,
           child: MaterialButton(
             minWidth: MediaQuery.of(context).size.width * 0.5,
             padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
-            onPressed: ()  {
-              controller.signUp();
+            onPressed: () {
+              if (controller.emaileditController.text.length == 0 ||
+                  controller.nombresController.text.length == 0) {
+                Get.dialog(const AlertDialog(
+                    title: Text("POR FAVOR"),
+                    content: Text("COMPLETAR TODOS LOS CAMPOS")));
+              } else if (controller.passwordeditController.text.length <= 8) {
+                Get.dialog(const AlertDialog(
+                    title: Text("POR SEGURIDAD"),
+                    content:
+                        Text("LA CONTRASEÑA DEBE TENER MAS DE 8 CARACTERES")));
+              } else {
+                controller.signUp();
+              }
             },
             child: const Text(
               "Registrar",

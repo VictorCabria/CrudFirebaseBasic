@@ -26,7 +26,7 @@ class LoginController extends GetxController {
   }
 
   getToHome() async {
-    Get.toNamed(Routes.HOME, arguments:{'usuario':usuario});
+    Get.toNamed(Routes.HOME, arguments: {'usuario': usuario});
   }
 
   getToregistrar() async {
@@ -114,10 +114,8 @@ class LoginController extends GetxController {
     });
   }
 
-
-
-signin() async {
-   if (formkey.currentState!.validate()) {
+  signin() async {
+    if (formkey.currentState!.validate()) {
       String id;
       var response = await auth.signIn(
           email: emailcontroller.text, password: passwordcontroller.text);
@@ -128,7 +126,7 @@ signin() async {
             await auth.getDocument(documentId: id, collection: "users");
         usuario = Usuarios.fromJson(usurario);
         Get.offAllNamed(Routes.HOME, arguments: {'id': id});
-}
-}
-}
+      }
+    }
+  }
 }

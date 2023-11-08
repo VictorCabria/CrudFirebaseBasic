@@ -45,6 +45,14 @@ class HomeController extends GetxController {
   }
 
 
+   getgeneroId(String id) async {
+    var response = await pacienteservices.getgeneroById(id);
+    if (response.isNotEmpty) {
+      return response.first;
+    }
+  }
+
+
 
 
 

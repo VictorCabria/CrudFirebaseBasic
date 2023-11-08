@@ -15,10 +15,8 @@ class RegistrarmedicamentosController extends GetxController {
   late TextEditingController condicionMcontroller;
   late TextEditingController fromDateControler;
   late TextEditingController fromDatetimeControler;
-   Pacientes? paciente;
-   TimeOfDay selectedtime = TimeOfDay.now();
-
-
+  Pacientes? paciente;
+  TimeOfDay selectedtime = TimeOfDay.now();
 
   @override
   void onInit() {
@@ -36,18 +34,17 @@ class RegistrarmedicamentosController extends GetxController {
       nombreM: nombreMcontroller.text,
       idpaciente: paciente?.id,
       fechaExpiracion: fromDateControler.text,
-      dosis:double.tryParse(dosiscontroller.text),
+      dosis: double.tryParse(dosiscontroller.text),
       hora: fromDatetimeControler.text,
-
     );
 
-      try {
+    try {
       if (formKey.currentState!.validate()) {
         await medicamentoservices.savemedicamentos(medicamentos: medicamentos);
         Get.back();
       }
     } on Exception catch (e) {
       return 'Error $e';
-    } 
+    }
   }
 }

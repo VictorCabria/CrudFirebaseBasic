@@ -43,16 +43,18 @@ class PassLogin extends StatelessWidget {
   }) : super(key: key);
 
   final LoginController controller;
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        SizedBox(height: 15.w),
         SizedBox(
             child: Image.asset(
           "assets/images/Recurso1.png",
-          height: 200,
+          height: 160,
         )),
-        SizedBox(height: 10.w),
+        SizedBox(height: 12.w),
         const Padding(
           padding: EdgeInsets.fromLTRB(0, 0, 250, 0),
           child: Text(
@@ -63,7 +65,7 @@ class PassLogin extends StatelessWidget {
                 fontWeight: FontWeight.bold),
           ),
         ),
-        SizedBox(height: 5.w),
+        SizedBox(height: 6.w),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
           child: TextFormField(
@@ -76,6 +78,7 @@ class PassLogin extends StatelessWidget {
             onSaved: (value) {
               controller.emailcontroller.text = value!;
             },
+            style: TextStyle(color: Colors.white),
             textInputAction: TextInputAction.next,
             cursorColor: Palette.primaryLetter,
             decoration: const InputDecoration(
@@ -98,12 +101,12 @@ class PassLogin extends StatelessWidget {
                     color: Palette.primaryLetter,
                   ),
                 ),
-                labelText: "Nombre",
+                labelText: "Correo",
                 fillColor: Palette.primary,
                 labelStyle: TextStyle(color: Palette.primaryLetter)),
           ),
         ),
-        const SizedBox(height: 3),
+        const SizedBox(height: 14),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
           child: TextFormField(
@@ -116,6 +119,7 @@ class PassLogin extends StatelessWidget {
             onSaved: (value) {
               controller.passwordcontroller.text = value!;
             },
+            style: TextStyle(color: Colors.white),
             textInputAction: TextInputAction.next,
             cursorColor: Palette.primaryLetter,
             obscureText: true,
@@ -143,7 +147,7 @@ class PassLogin extends StatelessWidget {
                 labelStyle: TextStyle(color: Palette.primaryLetter)),
           ),
         ),
-        const SizedBox(height: 15),
+        const SizedBox(height: 35),
         Material(
           borderRadius: BorderRadius.circular(20),
           color: Palette.primaryLetter,
@@ -151,14 +155,22 @@ class PassLogin extends StatelessWidget {
             minWidth: MediaQuery.of(context).size.width * 0.5,
             padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
             onPressed: () async {
-              await controller
-                  .getusuarios(controller.emailcontroller.toString());
+              await controller.getusuarios(controller.emailcontroller.text);
+              controller.authUser(
+                controller.emailcontroller.text,
+                controller.passwordcontroller.text,
+              );
 
-              controller.authUser(controller.emailcontroller.text,
-                  controller.passwordcontroller.text);
+              if (controller.usuario == null ||
+                  controller.passwordcontroller.text.length == 0) {
+                Get.dialog(const AlertDialog(
+                  title: Text("ESTE USUARIO NO EXISTE"),
+                  content: Text("O ESTÁ MAL ESCRITO"),
+                ));
+              }
             },
             child: const Text(
-              "Login",
+              "Ingrear",
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 20,
@@ -171,7 +183,17 @@ class PassLogin extends StatelessWidget {
         onPressed: () => controller.getToHome(),
         child: const Text("Login")), */
         ),
-        const SizedBox(height: 15),
+        SizedBox(height: 7.w),
+        Center(
+          child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
+              child: const Text("¿No tienes cuenta?",
+                  style: TextStyle(
+                      fontSize: 15,
+                      color: Palette.primaryLetter,
+                      fontWeight: FontWeight.bold))),
+        ),
+        //    SizedBox(height: 1.w),
         TextButton(
             onPressed: () {
               controller.getToregistrar();
@@ -180,7 +202,8 @@ class PassLogin extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 20,
                     color: Palette.primaryLetter,
-                    fontWeight: FontWeight.bold)))
+                    fontWeight: FontWeight.bold))),
+        const SizedBox(height: 40),
       ],
     );
   }

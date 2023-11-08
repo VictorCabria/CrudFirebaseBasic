@@ -3,6 +3,7 @@ class FirebaseReferences {
   String users = "usuarios";
   String pacientes = "pacientes";
   String medicamentos = "medicamentos";
+   String genero = "genero";
 
 }
 
