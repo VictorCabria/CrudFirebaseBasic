@@ -162,7 +162,7 @@ class PassLogin extends StatelessWidget {
               );
 
               if (controller.usuario == null ||
-                  controller.passwordcontroller.text.length == 0) {
+                  controller.passwordcontroller.text.length <= 6) {
                 Get.dialog(const AlertDialog(
                   title: Text("ESTE USUARIO NO EXISTE"),
                   content: Text("O ESTÁ MAL ESCRITO"),

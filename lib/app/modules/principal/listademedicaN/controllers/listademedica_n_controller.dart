@@ -38,12 +38,11 @@ class ListademedicaNController extends GetxController {
     });
   }
 
- void validaciondehora(List<Medicamentos> event) async {
-  for (var i = 0; i < event.length; i++) {
+  void validaciondehora(List<Medicamentos> event) async {
+    for (var i = 0; i < event.length; i++) {
       if (event[i].fechaExpiracion == fechalimite) {
         break;
       } else {
-        print(hoy);
         if (event[i].hora == hoy) {
           notificaionees.shownotify(
               id: 0,

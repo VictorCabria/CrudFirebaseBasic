@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:prestamo_mc_2_0/app/models/genero_model.dart';
 
 import '../controllers/detalles_controller.dart';
 
@@ -23,7 +24,7 @@ class DetallesView extends GetView<DetallesController> {
               ),
               Container(
                 child: Text(
-                  "${controller.paciente!.nombre}",
+                  "Nombre: ${controller.paciente!.nombre}",
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.w500),
                 ),
@@ -31,23 +32,30 @@ class DetallesView extends GetView<DetallesController> {
               const SizedBox(height: 20),
               Container(
                 child: Text(
-                  "${controller.paciente!.condicionm}",
+                  "Condicion Medica: ${controller.paciente!.condicionm}",
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.w500),
                 ),
               ),
               const SizedBox(height: 20),
               Container(
-                child: Text(
-                  "${controller.paciente!.genero}",
-                  style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.w500),
-                ),
-              ),
+                  child: FutureBuilder(
+                      future: controller.getgenero(controller.paciente!.genero),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          Genero genero = snapshot.data as Genero;
+                          return Text(
+                            ("Genero: ${genero.tipo!}"),
+                            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                          );
+                        } else {
+                          return const Text("");
+                        }
+                      })),
               const SizedBox(height: 20),
               Container(
                 child: Text(
-                  "${controller.paciente!.edad}",
+                  "Edad: ${controller.paciente!.edad!.toStringAsFixed(0)}",
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.w500),
                 ),

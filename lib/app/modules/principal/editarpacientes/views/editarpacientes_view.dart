@@ -10,16 +10,6 @@ class EditarpacientesView extends GetView<EditarpacientesController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Palette.primary,
-        title: const Text("Editar Pacientes"),
-        centerTitle: true,
-        leading: BackButton(
-          onPressed: () {
-            Get.back();
-          },
-        ),
-      ),
       body: Form(
         key: controller.formkey,
         child: Padding(
@@ -29,6 +19,22 @@ class EditarpacientesView extends GetView<EditarpacientesController> {
                 const SizedBox(
                   height: 20,
                 ),
+                Image.asset(
+                  'assets/images/mindLogo.png',
+                  height: 160,
+                ),
+                SizedBox(height: 25),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(0, 0, 120, 0),
+                  child: Text(
+                    "Editar Paciente",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Palette.tercery,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SizedBox(height: 30),
                 Container(
                     height: 60,
                     decoration: BoxDecoration(
@@ -40,15 +46,16 @@ class EditarpacientesView extends GetView<EditarpacientesController> {
                             return DropdownMenuItem<String>(
                                 value: items.id, child: Text(' ${items.tipo}'));
                           }).toList(),
+                          style: TextStyle(color: Palette.tercery),
                           decoration: const InputDecoration(
                               prefixIcon: Icon(Icons.account_circle,
-                                  color: Palette.primary),
+                                  color: Palette.tercery),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(40.0),
                                 ),
                                 borderSide: BorderSide(
-                                  color: Palette.primary,
+                                  color: Palette.tercery,
                                   width: 1,
                                 ),
                               ),
@@ -57,17 +64,17 @@ class EditarpacientesView extends GetView<EditarpacientesController> {
                                   Radius.circular(40.0),
                                 ),
                                 borderSide: BorderSide(
-                                  color: Palette.primary,
+                                  color: Palette.tercery,
                                 ),
                               ),
                               labelText: "Tipo",
-                              fillColor: Palette.primary,
-                              labelStyle: TextStyle(color: Palette.primary)),
+                              fillColor: Palette.tercery,
+                              labelStyle: TextStyle(color: Palette.tercery)),
                           value: controller.pacientesespecifico?.id,
                           onChanged: controller.onChangeDorpdown),
                     )),
-                const SizedBox(height: 15),
-                 Container(
+                const SizedBox(height: 25),
+                Container(
                   height: 60,
                   decoration: BoxDecoration(
                       color: Colors.white,
@@ -78,16 +85,17 @@ class EditarpacientesView extends GetView<EditarpacientesController> {
                     autofocus: false,
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.next,
-                    cursorColor: Palette.primary,
+                    cursorColor: Palette.tercery,
+                    style: TextStyle(color: Palette.tercery),
                     decoration: const InputDecoration(
                         prefixIcon:
-                            Icon(Icons.account_circle, color: Palette.primary),
+                            Icon(Icons.account_circle, color: Palette.tercery),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(
                             Radius.circular(40.0),
                           ),
                           borderSide: BorderSide(
-                            color: Palette.primary,
+                            color: Palette.tercery,
                             width: 1,
                           ),
                         ),
@@ -96,15 +104,15 @@ class EditarpacientesView extends GetView<EditarpacientesController> {
                             Radius.circular(40.0),
                           ),
                           borderSide: BorderSide(
-                            color: Palette.primary,
+                            color: Palette.tercery,
                           ),
                         ),
                         labelText: "Nombre",
                         fillColor: Palette.primary,
-                        labelStyle: TextStyle(color: Palette.primary)),
+                        labelStyle: TextStyle(color: Palette.tercery)),
                   ),
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 25),
                 Container(
                   height: 60,
                   decoration: BoxDecoration(
@@ -118,16 +126,17 @@ class EditarpacientesView extends GetView<EditarpacientesController> {
                     },
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.next,
-                    cursorColor: Palette.primary,
+                    cursorColor: Palette.tercery,
+                    style: TextStyle(color: Palette.tercery),
                     decoration: const InputDecoration(
                         prefixIcon:
-                            Icon(Icons.account_circle, color: Palette.primary),
+                            Icon(Icons.account_circle, color: Palette.tercery),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(
                             Radius.circular(40.0),
                           ),
                           borderSide: BorderSide(
-                            color: Palette.primary,
+                            color: Palette.tercery,
                             width: 1,
                           ),
                         ),
@@ -136,15 +145,15 @@ class EditarpacientesView extends GetView<EditarpacientesController> {
                             Radius.circular(40.0),
                           ),
                           borderSide: BorderSide(
-                            color: Palette.primary,
+                            color: Palette.tercery,
                           ),
                         ),
                         labelText: "Edad",
-                        fillColor: Palette.primary,
-                        labelStyle: TextStyle(color: Palette.primary)),
+                        fillColor: Palette.tercery,
+                        labelStyle: TextStyle(color: Palette.tercery)),
                   ),
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 25),
                 Container(
                   height: 60,
                   decoration: BoxDecoration(
@@ -152,20 +161,21 @@ class EditarpacientesView extends GetView<EditarpacientesController> {
                       borderRadius: BorderRadius.circular(20)),
                   child: TextFormField(
                     initialValue: controller.condicion.value,
-                      onChanged: (value) => controller.condicion.value = value,
+                    onChanged: (value) => controller.condicion.value = value,
                     autofocus: false,
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.next,
-                    cursorColor: Palette.primary,
+                    cursorColor: Palette.tercery,
+                    style: TextStyle(color: Palette.tercery),
                     decoration: const InputDecoration(
                         prefixIcon:
-                            Icon(Icons.account_circle, color: Palette.primary),
+                            Icon(Icons.account_circle, color: Palette.tercery),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(
                             Radius.circular(40.0),
                           ),
                           borderSide: BorderSide(
-                            color: Palette.primary,
+                            color: Palette.tercery,
                             width: 1,
                           ),
                         ),
@@ -174,15 +184,15 @@ class EditarpacientesView extends GetView<EditarpacientesController> {
                             Radius.circular(40.0),
                           ),
                           borderSide: BorderSide(
-                            color: Palette.primary,
+                            color: Palette.tercery,
                           ),
                         ),
                         labelText: "Condicion",
-                        fillColor: Palette.primary,
-                        labelStyle: TextStyle(color: Palette.primary)),
+                        fillColor: Palette.tercery,
+                        labelStyle: TextStyle(color: Palette.tercery)),
                   ),
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 25),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -190,7 +200,7 @@ class EditarpacientesView extends GetView<EditarpacientesController> {
                     ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor:
-                              MaterialStateProperty.all(Palette.primary)),
+                              MaterialStateProperty.all(Palette.tercery)),
                       onPressed: () {
                         Get.back();
                       },
@@ -202,7 +212,7 @@ class EditarpacientesView extends GetView<EditarpacientesController> {
                     ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor:
-                              MaterialStateProperty.all(Palette.primary)),
+                              MaterialStateProperty.all(Palette.tercery)),
                       onPressed: () {
                         controller.editarpacientes();
                       },
@@ -212,7 +222,7 @@ class EditarpacientesView extends GetView<EditarpacientesController> {
                       ),
                     ),
                   ],
-                ) 
+                )
               ],
             )),
       ),
