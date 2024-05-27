@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:prestamo_mc_2_0/app/models/genero_model.dart';
 import 'package:prestamo_mc_2_0/app/models/pacientes_model.dart';
+import 'package:prestamo_mc_2_0/app/models/user_model.dart';
 import 'package:prestamo_mc_2_0/app/utils/references.dart';
 
 import '../firebase_services/database_services.dart';
@@ -9,6 +10,8 @@ import '../firebase_services/database_services.dart';
 class PacientesServices {
   static String pacientesReference = firebaseReferences.pacientes;
   static String generoReference = firebaseReferences.genero;
+  static String usuarioReference = firebaseReferences.users;
+
   static final PacientesServices _instance = PacientesServices._internal();
 
   factory PacientesServices() {
@@ -74,6 +77,25 @@ class PacientesServices {
   FirebaseFirestore getlistpacientes = FirebaseFirestore.instance;
   CollectionReference obtenerlistpacientes() {
     return FirebaseFirestore.instance.collection(firebaseReferences.pacientes);
+  }
+
+    Future<Usuarios?> loginpacientes(String id) async {
+    // try {
+    print("id: $id");
+    List<Usuarios> cobradores = [];
+    var querySnapshot =
+        await database.getCollection(usuarioReference, 'id', id);
+    print("querySnapshot ${querySnapshot.docs.length}");
+    cobradores
+        .addAll(querySnapshot.docs.map((e) => Usuarios.fromJson(e)).toList());
+
+    return cobradores.first;
+    // } catch (e) {
+    //   if (kDebugMode) {
+    //     print("error ${e.toString()}");
+    //   }
+    //   return null;
+    // }
   }
 }
 

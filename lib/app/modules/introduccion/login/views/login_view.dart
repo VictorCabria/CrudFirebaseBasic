@@ -156,10 +156,6 @@ class PassLogin extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
             onPressed: () async {
               await controller.getusuarios(controller.emailcontroller.text);
-              controller.authUser(
-                controller.emailcontroller.text,
-                controller.passwordcontroller.text,
-              );
 
               if (controller.usuario == null ||
                   controller.passwordcontroller.text.length <= 6) {
@@ -167,10 +163,15 @@ class PassLogin extends StatelessWidget {
                   title: Text("ESTE USUARIO NO EXISTE"),
                   content: Text("O ESTÁ MAL ESCRITO"),
                 ));
+              } else {
+                controller.authUser(
+                  controller.emailcontroller.text,
+                  controller.passwordcontroller.text,
+                );
               }
             },
             child: const Text(
-              "Ingrear",
+              "Ingresar",
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 20,
@@ -184,10 +185,10 @@ class PassLogin extends StatelessWidget {
         child: const Text("Login")), */
         ),
         SizedBox(height: 7.w),
-        Center(
+        const Center(
           child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
-              child: const Text("¿No tienes cuenta?",
+              padding: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
+              child: Text("¿No tienes cuenta?",
                   style: TextStyle(
                       fontSize: 15,
                       color: Palette.primaryLetter,

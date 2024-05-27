@@ -11,7 +11,7 @@ class CreatepacientesView extends GetView<CreatepacientesController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Palette.tercery,
+      backgroundColor: Palette.primaryLetter,
       body: Form(
         key: controller.formkey,
         child: Padding(
@@ -21,7 +21,7 @@ class CreatepacientesView extends GetView<CreatepacientesController> {
               height: 20,
             ),
             Image.asset(
-              "assets/images/Recurso1.png",
+              "assets/images/mindLogo.png",
               height: 160,
             ),
             SizedBox(height: 25),
@@ -31,7 +31,7 @@ class CreatepacientesView extends GetView<CreatepacientesController> {
                 "Registrar Pacientes",
                 style: TextStyle(
                     fontSize: 20,
-                    color: Palette.primaryLetter,
+                    color: Palette.tercery,
                     fontWeight: FontWeight.bold),
               ),
             ),
@@ -39,135 +39,25 @@ class CreatepacientesView extends GetView<CreatepacientesController> {
             Container(
               height: 60,
               decoration: BoxDecoration(
-                  color: Palette.tercery,
+                  color: Palette.primaryLetter,
                   borderRadius: BorderRadius.circular(20)),
               child: TextFormField(
                 autofocus: false,
                 keyboardType: TextInputType.name,
                 textInputAction: TextInputAction.next,
-                cursorColor: Palette.primaryLetter,
+                cursorColor: Palette.tercery,
                 controller: controller.nombrecontroller,
                 onSaved: (value) {
                   controller.nombrecontroller.text = value!;
                 },
-                style: TextStyle(color: Palette.primaryLetter),
+                style: TextStyle(color: Palette.tercery),
                 decoration: const InputDecoration(
-                    prefixIcon:
-                        Icon(Icons.person, color: Palette.primaryLetter),
+                    prefixIcon: Icon(Icons.person, color: Palette.tercery),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
                         Radius.circular(40.0),
                       ),
-                      borderSide: BorderSide(color: Palette.primaryLetter),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(40.0),
-                      ),
-                      borderSide: BorderSide(
-                        color: Palette.primaryLetter,
-                      ),
-                    ),
-                    labelText: "Nombre del paciente",
-                    fillColor: Palette.primaryLetter,
-                    labelStyle: TextStyle(color: Palette.primaryLetter)),
-              ),
-            ),
-            const SizedBox(height: 25),
-            Container(
-              height: 60,
-              decoration: BoxDecoration(
-                  color: Palette.tercery,
-                  borderRadius: BorderRadius.circular(20)),
-              child: TextFormField(
-                autofocus: false,
-                keyboardType: TextInputType.number,
-                cursorColor: Palette.primaryLetter,
-                controller: controller.identificacioncontroller,
-                style: TextStyle(color: Palette.primaryLetter),
-                decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.hourglass_bottom_sharp,
-                        color: Palette.primaryLetter),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(40.0),
-                      ),
-                      borderSide: BorderSide(color: Palette.primaryLetter),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(40.0),
-                      ),
-                      borderSide: BorderSide(
-                        color: Palette.primaryLetter,
-                      ),
-                    ),
-                    labelText: "Edad",
-                    fillColor: Palette.primaryLetter,
-                    labelStyle: TextStyle(color: Palette.primaryLetter)),
-              ),
-            ),
-            const SizedBox(height: 25),
-            Container(
-                height: 60,
-                decoration: BoxDecoration(
-                    color: Palette.tercery,
-                    borderRadius: BorderRadius.circular(20)),
-                child: Obx(
-                  () => DropdownButtonFormField(
-                      items: controller.generocontroller.map((items) {
-                        return DropdownMenuItem<Genero>(
-                            value: items, child: Text(' ${items.tipo}'));
-                      }).toList(),
-                      decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.account_circle,
-                              color: Palette.primaryLetter),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(40.0),
-                            ),
-                            borderSide: BorderSide(
-                              color: Palette.primaryLetter,
-                              width: 1,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(40.0),
-                            ),
-                            borderSide: BorderSide(
-                              color: Palette.primaryLetter,
-                            ),
-                          ),
-                          labelText: "Genero",
-                          fillColor: Palette.primaryLetter,
-                          labelStyle: TextStyle(color: Palette.primaryLetter)),
-                      onChanged: controller.onChangeDorpdown),
-                )),
-            const SizedBox(height: 25),
-            Container(
-              height: 60,
-              decoration: BoxDecoration(
-                  color: Palette.tercery,
-                  borderRadius: BorderRadius.circular(20)),
-              child: TextFormField(
-                autofocus: false,
-                keyboardType: TextInputType.name,
-                textInputAction: TextInputAction.next,
-                cursorColor: Palette.primaryLetter,
-                controller: controller.condicionMcontroller,
-                onSaved: (value) {
-                  controller.condicionMcontroller.text = value!;
-                },
-                style: TextStyle(color: Palette.primaryLetter),
-                decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.medical_information,
-                        color: Palette.primaryLetter),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(40.0),
-                      ),
-                      borderSide: BorderSide(color: Palette.primaryLetter),
+                      borderSide: BorderSide(color: Palette.tercery),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -177,9 +67,121 @@ class CreatepacientesView extends GetView<CreatepacientesController> {
                         color: Palette.tercery,
                       ),
                     ),
+                    labelText: "Nombre del paciente",
+                    fillColor: Palette.tercery,
+                    labelStyle: TextStyle(color: Palette.tercery)),
+              ),
+            ),
+            const SizedBox(height: 25),
+            Container(
+              height: 60,
+              decoration: BoxDecoration(
+                  color: Palette.primaryLetter,
+                  borderRadius: BorderRadius.circular(20)),
+              child: TextFormField(
+                autofocus: false,
+                keyboardType: TextInputType.number,
+                cursorColor: Palette.tercery,
+                controller: controller.identificacioncontroller,
+                style: TextStyle(color: Palette.tercery),
+                decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.hourglass_bottom_sharp,
+                        color: Palette.tercery),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(40.0),
+                      ),
+                      borderSide: BorderSide(color: Palette.tercery),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(40.0),
+                      ),
+                      borderSide: BorderSide(
+                        color: Palette.tercery,
+                      ),
+                    ),
+                    labelText: "Edad",
+                    fillColor: Palette.tercery,
+                    labelStyle: TextStyle(color: Palette.tercery)),
+              ),
+            ),
+            const SizedBox(height: 25),
+            Container(
+                height: 60,
+                decoration: BoxDecoration(
+                    color: Palette.primaryLetter,
+                    borderRadius: BorderRadius.circular(20)),
+                child: Obx(
+                  () => DropdownButtonFormField(
+                      items: controller.generocontroller.map((items) {
+                        return DropdownMenuItem<Genero>(
+                            value: items,
+                            child: Text(' ${items.tipo}',
+                                style: TextStyle(color: Palette.tercery)));
+                      }).toList(),
+                      decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.account_circle,
+                              color: Palette.tercery),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(40.0),
+                            ),
+                            borderSide: BorderSide(
+                              color: Palette.tercery,
+                              width: 1,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(40.0),
+                            ),
+                            borderSide: BorderSide(
+                              color: Palette.tercery,
+                            ),
+                          ),
+                          labelText: "Genero",
+                          fillColor: Palette.tercery,
+                          labelStyle: TextStyle(color: Palette.tercery)),
+                      onChanged: controller.onChangeDorpdown,
+                      style: TextStyle(color: Palette.tercery)),
+                )),
+            const SizedBox(height: 25),
+            Container(
+              height: 60,
+              decoration: BoxDecoration(
+                  color: Palette.primaryLetter,
+                  borderRadius: BorderRadius.circular(20)),
+              child: TextFormField(
+                autofocus: false,
+                keyboardType: TextInputType.name,
+                textInputAction: TextInputAction.next,
+                cursorColor: Palette.tercery,
+                controller: controller.condicionMcontroller,
+                onSaved: (value) {
+                  controller.condicionMcontroller.text = value!;
+                },
+                style: TextStyle(color: Palette.tercery),
+                decoration: const InputDecoration(
+                    prefixIcon:
+                        Icon(Icons.medical_information, color: Palette.tercery),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(40.0),
+                      ),
+                      borderSide: BorderSide(color: Palette.tercery),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(40.0),
+                      ),
+                      borderSide: BorderSide(
+                        color: Palette.primaryLetter,
+                      ),
+                    ),
                     labelText: "Condicion Medica",
-                    fillColor: Palette.primaryLetter,
-                    labelStyle: TextStyle(color: Palette.primaryLetter)),
+                    fillColor: Palette.tercery,
+                    labelStyle: TextStyle(color: Palette.tercery)),
               ),
             ),
             const SizedBox(height: 30),
@@ -190,19 +192,20 @@ class CreatepacientesView extends GetView<CreatepacientesController> {
                 ElevatedButton(
                   style: ButtonStyle(
                       backgroundColor:
-                          MaterialStateProperty.all(Palette.primaryLetter)),
+                          MaterialStateProperty.all(Palette.tercery)),
                   onPressed: () {
                     Get.back();
                   },
                   child: const Text(
                     "Atras",
-                    style: TextStyle(fontSize: 18, color: Palette.tercery),
+                    style:
+                        TextStyle(fontSize: 18, color: Palette.primaryLetter),
                   ),
                 ),
                 ElevatedButton(
                   style: ButtonStyle(
                       backgroundColor:
-                          MaterialStateProperty.all(Palette.primaryLetter)),
+                          MaterialStateProperty.all(Palette.tercery)),
                   onPressed: () {
                     if (controller.nombrecontroller.text.length == 0 ||
                         controller.identificacioncontroller.text.length == 0 ||
@@ -216,7 +219,8 @@ class CreatepacientesView extends GetView<CreatepacientesController> {
                   },
                   child: const Text(
                     "Guardar",
-                    style: TextStyle(fontSize: 18, color: Palette.tercery),
+                    style:
+                        TextStyle(fontSize: 18, color: Palette.primaryLetter),
                   ),
                 ),
               ],

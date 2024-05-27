@@ -1,19 +1,21 @@
 import 'package:get/get.dart';
 
-import '../modules/principal/editarpacientes/bindings/editarpacientes_binding.dart';
-import '../modules/principal/editarpacientes/views/editarpacientes_view.dart';
 import '../modules/introduccion/landing/bindings/landing_binding.dart';
 import '../modules/introduccion/landing/views/landing_view.dart';
 import '../modules/introduccion/login/bindings/login_binding.dart';
 import '../modules/introduccion/login/views/login_view.dart';
 import '../modules/introduccion/registrarse/bindings/registrarse_binding.dart';
 import '../modules/introduccion/registrarse/views/registrarse_view.dart';
+import '../modules/listapacientes/bindings/listapacientes_binding.dart';
+import '../modules/listapacientes/views/listapacientes_view.dart';
 import '../modules/principal/Detalles/bindings/detalles_binding.dart';
 import '../modules/principal/Detalles/views/detalles_view.dart';
 import '../modules/principal/ajustespt/bindings/ajustespt_binding.dart';
 import '../modules/principal/ajustespt/views/ajustespt_view.dart';
 import '../modules/principal/createpacientes/bindings/createpacientes_binding.dart';
 import '../modules/principal/createpacientes/views/createpacientes_view.dart';
+import '../modules/principal/editarpacientes/bindings/editarpacientes_binding.dart';
+import '../modules/principal/editarpacientes/views/editarpacientes_view.dart';
 import '../modules/principal/home/bindings/home_binding.dart';
 import '../modules/principal/home/views/home_view.dart';
 import '../modules/principal/listademedicaN/bindings/listademedica_n_binding.dart';
@@ -85,6 +87,11 @@ class AppPages {
       name: _Paths.EDITARPACIENTES,
       page: () => const EditarpacientesView(),
       binding: EditarpacientesBinding(),
+    ),
+    GetPage(
+      name: _Paths.LISTAPACIENTES,
+      page: () => const ListapacientesView(),
+      binding: ListapacientesBinding(),
     ),
   ];
 }

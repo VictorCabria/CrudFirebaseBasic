@@ -102,32 +102,13 @@ class RegistrarmedicamentosView
                     keyboardType: TextInputType.number,
                     onTap: () async {
                       final TimeOfDay? pickedTime = await showTimePicker(
-                        context: context,
-                        initialTime: controller.selectedtime,
-                        initialEntryMode: TimePickerEntryMode.dial,
-                        builder: (context, child) {
-                          final Widget mediaQueryWrapper = MediaQuery(
-                            data: MediaQuery.of(context).copyWith(
-                              alwaysUse24HourFormat: false,
-                            ),
-                            child: child!,
-                          );
-                          // A hack to use the es_US dateTimeFormat value.
-                          if (Localizations.localeOf(context).languageCode ==
-                              'es') {
-                            return Localizations.override(
-                              context: context,
-                              locale: Locale('es', 'US'),
-                              child: mediaQueryWrapper,
-                            );
-                          }
-                          return mediaQueryWrapper;
-                        },
-                      );
+                          context: context,
+                          initialTime: controller.selectedtime,
+                          initialEntryMode: TimePickerEntryMode.dial);
 
                       if (pickedTime != null) {
                         controller.fromDatetimeControler.text =
-                            '${pickedTime.hourOfPeriod}:${pickedTime.minute}';
+                            '${pickedTime.hour}:${pickedTime.minute}';
                       }
                     },
                     controller: controller.fromDatetimeControler,

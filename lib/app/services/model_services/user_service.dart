@@ -19,11 +19,6 @@ class UserService {
 
   DocumentSnapshot? lastDocument;
 
-  FirebaseFirestore getlistusuarioss = FirebaseFirestore.instance;
-  CollectionReference obtenerlistusuarios() {
-    return FirebaseFirestore.instance.collection(userReference);
-  }
-
   Future<Usuarios?> loginusuariosemail(String email) async {
     try {
       List<Usuarios> usuarios = [];

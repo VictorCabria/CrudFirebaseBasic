@@ -1,246 +1,429 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:prestamo_mc_2_0/app/models/genero_model.dart';
-import 'package:prestamo_mc_2_0/app/routes/app_pages.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../../../models/pacientes_model.dart';
+import '../../../../routes/app_pages.dart';
 import '../../../../utils/palette.dart';
+
+
+import '../../../../utils/text_styles.dart';
+import '../../../widgets/header.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Scaffold(
-        appBar: AppBar(
-          title: const Text('Pacientes'),
-          centerTitle: true,
-          backgroundColor: Palette.tercery,
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.logout),
-              onPressed: () => controller.logout(),
-            ),
-            /* IconButton(
-                icon: const Icon(Icons.abc),
-                onPressed: () => controller.notificaciones()) */
-          ],
-        ),
-        body: Stack(children: [
-          GetX<HomeController>(
-            builder: (b) => b.isloading.value
-                ? const CircularProgressIndicator()
-                : ListView(
-                    children: b.pacientesget
-                        .map(
-                          (element) => SizedBox(
-                            child: Column(
-                              children: [
-                                const SizedBox(
-                                  height: 1,
-                                ),
-                                CustomCard(
-                                  controller: b,
-                                  s: element.obs,
-                                ),
-                                const Divider(
-                                  thickness: 0.5,
-                                )
-                              ],
+    return Obx(
+      () => Stack(children: [
+        Scaffold(
+            body: Container(
+          color: Palette.cuary,
+          height: 100.h,
+          child: CustomScrollView(
+            controller: controller.scrollController,
+            slivers: [
+              SliverAppBar(
+                title: !controller.isExpanded.value
+                    ? const Text("")
+                    : const Text("Prestamos"),
+                automaticallyImplyLeading: false,
+                centerTitle: true,
+                expandedHeight: 20.h,
+                pinned: true,
+                backgroundColor: Palette.primary,
+                flexibleSpace: FlexibleSpaceBar(
+                  background: HeaderWidget(controller: controller),
+                ),
+                actions: [
+                  !controller.gestorMode.value
+                      ? IconButton(
+                          icon: const Icon(Icons.settings),
+                          onPressed: () {
+                        
+                          },
+                        )
+                      : const SizedBox(),
+                  IconButton(
+                    icon: const Icon(Icons.logout),
+                    onPressed: () => controller.logout(),
+                  )
+                ],
+              ),
+              // SliverToBoxAdapter(
+              //   child: Padding(
+              //     padding: EdgeInsets.all(5.w),
+              //     child: SingleChildScrollView(
+              //       scrollDirection: Axis.horizontal,
+              //       child: Row(
+              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //         children: [
+              //           CardInfo(
+              //             name: "Saldo",
+              //             value: controller.saldo,
+              //           ),
+              //           CardInfo(
+              //             name: "Prestamos",
+              //             value: controller.prestamos,
+              //           ),
+              //           CardInfo(
+              //             name: "Recaudos",
+              //             value: controller.recaudos,
+              //           ),
+              //           CardInfo(
+              //             name: "Transacciones",
+              //             value: controller.transacciones,
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              controller.gestorMode.value
+                  ? Obx(() => (SliverToBoxAdapter(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 2.h,
+                            vertical: 2.h,
+                          ),
+                          child: Card(
+                            child: Container(
+                              height: 20.h,
+                              margin: EdgeInsets.symmetric(
+                                horizontal: 2.h,
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Image.asset(
+                                    "assets/icons/dashboard.png",
+                                    scale: 1.5,
+                                  ),
+                                  SizedBox(width: 5.h),
+                                  Expanded(
+                                    child: Container(
+                                      margin: const EdgeInsets.all(10),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [Text(
+                                                  "prueba",
+                                                  style: styles.tittle,
+                                                )]
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                        )
-                        .toList()),
-          ),
-        ]),
-        bottomSheet: Container(
-          color: Palette.tercery,
-          height: 10.h,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                padding: EdgeInsets.only(left: 3.w),
-                margin: const EdgeInsets.all(20),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text("Pacientes",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold)),
-                      Text(controller.pacientes.length.toString(),
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold)),
-                    ]),
-              ),
-              Container(
-                padding: EdgeInsets.only(right: 5.w),
-                margin: const EdgeInsets.all(10),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Palette.primaryLetter,
-                        child: IconButton(
-                            onPressed: () => controller.createpaciente(),
-                            icon: const Icon(
-                              Icons.add,
-                              color: Palette.tercery,
-                            )),
+                        ),
+                      )))
+                  : (SliverToBoxAdapter(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 2.h,
+                          vertical: 2.h,
+                        ),
+                        child: GestureDetector(
+                         
+                          child: Card(
+                            child: Container(
+                              height: 20.h,
+                              margin: EdgeInsets.symmetric(
+                                horizontal: 2.h,
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Image.asset(
+                                    "assets/icons/dashboard.png",
+                                    scale: 1.5,
+                                  ),
+                                  SizedBox(width: 5.h),
+                                  Expanded(
+                                    child: Container(
+                                      margin: const EdgeInsets.all(10),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [Text(
+                                                  "Informacion",
+                                                  style: styles.tittle,
+                                                )]
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                    ]),
+                    )),
+              SliverToBoxAdapter(
+                child: SizedBox(height: 1.h),
               ),
+              SliverGrid.count(
+                crossAxisSpacing: 4,
+                mainAxisSpacing: 4,
+                crossAxisCount: 2,
+                childAspectRatio: 1.5,
+                children: controller.gestorMode.value
+                    ? [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 2.h,
+                            vertical: 1.5.h,
+                          ),
+                          child: GestureDetector(
+                            onTap: () {
+                              
+                            },
+                            child: Card(
+                              child: Container(
+                                margin: const EdgeInsets.all(15),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      "assets/icons/prestamo.png",
+                                      scale: 1.5,
+                                    ),
+                                    SizedBox(height: 0.5.h),
+                                    Text(
+                                      "Recaudos",
+                                      style: styles.tittleSub,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 2.h,
+                            vertical: 1.5.h,
+                          ),
+                          child: GestureDetector(
+                            onTap: () {
+                             
+                            },
+                            child: Card(
+                              child: Container(
+                                margin: const EdgeInsets.all(15),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      "assets/icons/transaccion.png",
+                                      scale: 1.5,
+                                    ),
+                                    SizedBox(height: 0.5.h),
+                                    FittedBox(
+                                      fit: BoxFit.contain,
+                                      child: Text(
+                                        "Transacciones",
+                                        maxLines: 1,
+                                        style: styles.tittleSub,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ]
+                    : [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 2.h,
+                            vertical: 2.h,
+                          ),
+                          child: GestureDetector(
+                            onTap: () => controller.goTousuarios(),
+                            child: Card(
+                              child: Container(
+                                margin: const EdgeInsets.all(10),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      "assets/icons/banco.png",
+                                      scale: 1.5,
+                                    ),
+                                    Text(
+                                      "Pacientes",
+                                      style: styles.tittleSub,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 2.h,
+                            vertical: 2.h,
+                          ),
+                          child: GestureDetector(
+                            onTap: () => {},
+                            child: Card(
+                              child: Container(
+                                margin: const EdgeInsets.all(10),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      "assets/icons/prestamo.png",
+                                      scale: 1.5,
+                                    ),
+                                    Text(
+                                      "Medicamentos",
+                                      style: styles.tittleSub,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 2.h,
+                            vertical: 2.h,
+                          ),
+                          child: GestureDetector(
+                            onTap: () {
+                           
+                            },
+                            child: Card(
+                              child: Container(
+                                margin: const EdgeInsets.all(10),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      "assets/icons/transaccion.png",
+                                      scale: 1.5,
+                                    ),
+                                    FittedBox(
+                                      child: Text(
+                                        "Informes",
+                                        maxLines: 1,
+                                        style: styles.tittleSub,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                       
+                      ],
+              )
+              // SessionWidget(),
+              // const SizedBox(height: 20),
+              // const Text('Hello World'),
             ],
           ),
-        )));
-  }
-}
-
-class CustomCard extends StatelessWidget {
-  const CustomCard({Key? key, required this.controller, required this.s})
-      : super(key: key);
-
-  final HomeController controller;
-
-  final Rx<Pacientes> s;
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      shape: const RoundedRectangleBorder(
-        side: BorderSide(
-          color: Palette.tercery,
-        ),
-        borderRadius: const BorderRadius.all(Radius.circular(12)),
-      ),
-      child: ListTile(
-          onTap: () {
-            controller.getAjustesPT(s.value);
-          },
-          onLongPress: () {},
-          title: Padding(
-            padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-            child: Text(
-              (s.value.nombre!),
-              style: const TextStyle(fontSize: 20, color: Palette.tercery),
-            ),
-          ),
-          isThreeLine: true,
-          subtitle: Padding(
-            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(height: 10.w),
-                          Text((s.value.condicionm!),
-                              style: TextStyle(fontSize: 15)),
-
-                          /* const SizedBox(height: 10),
-              Container(
-                  child: const Text("Proximo Pago",
-                      style: TextStyle(fontWeight: FontWeight.bold))),
-              const SizedBox(height: 5),
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '${s.fechaPago}',
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ],
+        )),
+        controller.cargando.value == true
+            ? Container(
+                decoration: const BoxDecoration(
+                  color: Colors.white70,
                 ),
-              ), */
-                        ]),
-                  ),
-                  const Divider(
-                    thickness: 5,
-                    height: 30,
-                    color: Colors.greenAccent,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                ClipRRect(
-                                  child: Image.asset(
-                                    "assets/images/Recurso4.png",
-                                    height: 20,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.all(8),
-                                  child: FutureBuilder(
-                                      future: controller
-                                          .getgeneroId(s.value.genero!),
-                                      builder: (context, snapshot) {
-                                        if (snapshot.hasData) {
-                                          Genero generos =
-                                              snapshot.data as Genero;
-                                          return Text(generos.tipo!);
-                                        } else {
-                                          return const Text("");
-                                        }
-                                      }),
-                                )
-                              ],
-                            ),
-                          ])),
-                      Expanded(
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                ClipRRect(
-                                  child: Image.asset(
-                                    "assets/images/edad.png",
-                                    height: 20,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.all(8),
-                                  child: Text(
-                                    s.value.edad!.toStringAsFixed(0),
-                                    style: TextStyle(color: Colors.grey),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ]))
-                    ],
-                  )
-                ]),
-          ),
-          leading: SizedBox(
-            child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.zero),
-                child: Image.asset(
-                  "assets/images/Recurso5.png",
-                  height: 100,
+                child: const Center(
+                    child: CircularProgressIndicator(
+                  strokeWidth: 5,
                 )),
-          )),
+              )
+            : Container(),
+      ]),
     );
   }
 }
+
+class CardInfo extends StatelessWidget {
+  const CardInfo({
+    Key? key,
+    required this.value,
+    required this.name,
+  }) : super(key: key);
+
+  final RxString value;
+  final String name;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: SizedBox(
+        height: 80,
+        width: 100,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                value.value,
+                style: styles.tittle,
+              ),
+              Text(
+                name,
+                style: styles.tittleSub,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SessionWidget extends StatelessWidget {
+  const SessionWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+class HeaderWidget extends StatelessWidget {
+  const HeaderWidget({
+    Key? key,
+    required this.controller,
+  }) : super(key: key);
+
+  final HomeController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+      () => HeaderContainer(
+        height: double.infinity,
+        color: Palette.tercery,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25),
+          child: Row(
+            children: [
+              Text(
+                'Bienvenido ${controller.cobrador}',
+                overflow: TextOverflow.ellipsis,
+                style: styles.tittleRegister,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+

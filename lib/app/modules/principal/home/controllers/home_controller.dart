@@ -1,41 +1,66 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:prestamo_mc_2_0/app/models/pacientes_model.dart';
-import 'package:prestamo_mc_2_0/app/models/user_model.dart';
-import 'package:prestamo_mc_2_0/app/modules/introduccion/login/controllers/login_controller.dart';
-import 'package:prestamo_mc_2_0/app/services/model_services/notificicacion_service.dart';
 
-import 'package:prestamo_mc_2_0/app/services/model_services/pacientes_services.dart';
-
+import '../../../../models/user_model.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../services/firebase_services/auth_services.dart';
+import '../../../../services/model_services/pacientes_services.dart';
 
 class HomeController extends GetxController {
-  RxList<Pacientes> pacientes = RxList<Pacientes>();
-  late Stream<List<Pacientes>> pacienteStream;
-  List<Pacientes> get pacientesget => pacientes;
-  RxBool isloading = false.obs;
+  final gestorMode = false.obs;
+  final loading = false.obs;
+  final isExpanded = false.obs;
+  final isOpen = false.obs;
+  final isNulll = true.obs;
+  RxBool cargando = false.obs;
 
- Usuarios? usuario;
+  Usuarios? usuario;
+
+  //info de la session
+  final fecha = ''.obs;
+  final cobrador = ''.obs;
+  final saldo = 0.0.obs;
+  final zona = ''.obs;
+  final prestamos = ''.obs;
+  final transacciones = ''.obs;
+  final recaudos = ''.obs;
+
+  final scrollController = ScrollController();
+
   @override
-  void onInit() {
-    usuario = Get.arguments['usuario'];
-    pacienteStream = getpacientes();
+  void onInit() async {
     super.onInit();
- print(usuario);
-    init();
+    cargando.value = true;
+    gestorMode.value =
+        Get.arguments != null ? Get.arguments['gestorMode'] : false;
+    await getusuario();
+
+    scrollController.addListener(_onScroll);
+    cargando.value = false;
   }
 
-  init() {
-    pacienteStream.listen((event) async {
-      pacientes.value = event;
-    });
+  getusuario() async {
+    if (gestorMode.value) {
+      usuario = Get.arguments != null ? Get.arguments['usuarios'] : null;
+      cobrador.value = usuario!.nombre!;
+    } else {
+      var response =
+          await pacienteservices.loginpacientes(auth.getCurrentUser()!.uid);
+      if (response != null) {
+        usuario = response;
+        cobrador.value = usuario!.nombre!;
+        print('Cobrador${usuario!.nombre!}');
+      }
+    }
   }
 
-  getpacientes() => pacienteservices
-      .obtenerlistpacientes()
-      .where("idusuario", isEqualTo: usuario!.id)
-      .snapshots()
-      .map((event) => event.docs.map((e) => Pacientes.fromJson(e)).toList());
+  void goTousuarios() {
+    print('goToPrestamos');
+    Get.toNamed(Routes.LISTAPACIENTES);
+  }
 
   logout() async {
     var response = await auth.signOut();
@@ -44,24 +69,15 @@ class HomeController extends GetxController {
     }
   }
 
-
-   getgeneroId(String id) async {
-    var response = await pacienteservices.getgeneroById(id);
-    if (response.isNotEmpty) {
-      return response.first;
+  _onScroll() {
+    isExpanded.value = isSliverAppBarExpanded;
+    if (kDebugMode) {
+      print(isExpanded.value);
     }
   }
 
-
-
-
-
-  
-  getAjustesPT(Pacientes d) {
-    Get.toNamed(Routes.AJUSTESPT, arguments: d);
-  }
-
-  createpaciente() {
-    Get.toNamed(Routes.CREATEPACIENTES, arguments:{'usuario':usuario});
+  bool get isSliverAppBarExpanded {
+    return scrollController.hasClients &&
+        scrollController.offset > (150 - kToolbarHeight);
   }
 }

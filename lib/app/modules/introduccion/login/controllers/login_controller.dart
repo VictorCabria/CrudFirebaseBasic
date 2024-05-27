@@ -26,7 +26,7 @@ class LoginController extends GetxController {
   }
 
   getToHome() async {
-    Get.toNamed(Routes.HOME, arguments: {'usuario': usuario});
+    Get.toNamed(Routes.HOME, arguments: {'gestorMode': gestorMode.value});
   }
 
   getToregistrar() async {
@@ -38,9 +38,6 @@ class LoginController extends GetxController {
     usuario = response;
   }
 
-  loginusuario() {
-    authUser(emailcontroller.text, passwordcontroller.text);
-  }
 
   Future<String?> authUser(String email, String pass) async {
     try {
